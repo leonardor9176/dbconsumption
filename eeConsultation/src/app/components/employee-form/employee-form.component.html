@@ -1,0 +1,94 @@
+<h2 class="text-center">{{config.config.formComponent.title}}</h2>
+<div class="text-center">
+    <form [formGroup]="form">
+        <div>
+            <div>
+                <label for={{fields.field.f1}}>{{fields.text.f1}}</label>
+                <input type="text" formControlName={{fields.field.f1}} class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['name'].errors, 'is-valid' : name.valid && (name.dirty || name.touched)}">
+            </div>
+
+
+            <div>
+                <label for={{fields.field.f2}}>{{fields.text.f2}}</label>
+                <input type="text" id={{fields.field.f2}} name={{fields.field.f2}} formControlName="document"
+                    class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['document'].errors, 'is-valid' : document.valid && (document.dirty || document.touched)}">
+            </div>
+            <div>
+                <label for={{fields.field.f3}}>{{fields.text.f3}}</label>
+                <input type="date" id={{fields.field.f3}} name={{fields.field.f3}} formControlName="dob"
+                    class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['dob'].errors, 'is-valid' : dob.valid && (dob.dirty || dob.touched)}">
+            </div>
+            <div>
+                <label for={{fields.field.f4}}>{{fields.text.f4}}</label>
+                <div>
+                    <input type="radio" id="g-male" name="gender" value="m" formControlName="gender"
+                        [ngClass]="{'is-invalid' : sub && f['gender'].errors, 'is-valid' : gender.valid && (gender.dirty || gender.touched)}">
+                    <label for="g-male">Hombre</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="g-female" name="gender" formControlName="gender" value="f"
+                        [ngClass]="{'is-invalid' : sub && f['gender'].errors, 'is-valid' : gender.valid && (gender.dirty || gender.touched)}">
+                    <label for="g-female">Mujer</label>
+                </div>
+            </div>
+            <div>
+                <label for={{fields.field.f5}}>{{fields.text.f5}}</label>
+                <input type="number" id={{fields.field.f5}} name={{fields.field.f5}} formControlName="phone"
+                    class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['phone'].errors, 'is-valid' : phone.valid && (phone.dirty || phone.touched)}">
+            </div>
+            <div>
+                <label for={{fields.field.f6}}>{{fields.text.f6}}</label>
+                <input type="text" id={{fields.field.f6}} name={{fields.field.f6}} formControlName="email"
+                    class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['email'].errors, 'is-valid' : email.valid && (email.dirty || email.touched)}">
+            </div>
+            <div>
+                <label for={{fields.field.f7}}>{{fields.text.f7}}</label>
+                <input type="number" id={{fields.field.f7}} name={{fields.field.f7}} formControlName="salary"
+                    class="form-control"
+                    [ngClass]="{'is-invalid' : sub && f['salary'].errors, 'is-valid' : salary.valid && (salary.dirty || salary.touched)}">
+            </div>
+
+
+
+            <button (click)="validate()" class="bt bt-success">{{config.config.formComponent.btnAdd}}</button>
+        </div>
+        <br>
+    </form>
+</div>
+<h2 class="text-center">{{config.config.formComponent.title}}</h2>
+<div class="text-center">
+    <table *ngIf="employees.length > 0" class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th *ngFor="let col of columns; index as i" scope="col">{{fields.text[columns[i]]}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ee of employees; index as i">
+                <th scope="row">{{i+1}}</th>
+                <th *ngFor="let prop of eeProps; index as j" scope="col">
+                    <div *ngIf="fields.field[eeProps[j]] != 'dob' else printDate">
+                        {{employees[i][fields.field[eeProps[j]]]}}
+                    </div>
+                    <ng-template #printDate>
+                        {{employees[i][fields.field[eeProps[j]]] | date: 'dd/MM/yyyy'}}
+                    </ng-template>
+                </th>
+
+                <td><button (click)="edit(ee)" 
+                        class="bt btn-primary">{{config.config.formComponent.btnEdit}}</button>
+                </td>
+                <td><button (click)="delete(ee)"
+                        class="bt btn-danger">{{config.config.formComponent.btnDelete}}</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
