@@ -11,6 +11,7 @@ export const config = {
         btnAdd: 'agregar',
         btnEdit: 'editar',
         btnDelete: 'eliminar',
+        btnSearch: 'buscar',
 
         form: {
             field: {

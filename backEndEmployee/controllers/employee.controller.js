@@ -25,21 +25,22 @@ const ctrlEmployee = {},
 };
 
 ctrlEmployee.list = async (req, res) => {
-    const patients = await Employee.find();
-    res.json(patients);
+    const employees = await Employee.find();
+    res.json({data: employees, status: true});
 }
 
 ctrlEmployee.showEmployee = async (req, res) => {
     const { document } = req.params;
     const employee = await Employee.findOne({ document: document });
-    res.json(employee);
+    console.log(employee)
+    res.json({data: employee, status: true});
 }
 
 ctrlEmployee.delete = async (req, res) => {
     console.log('delete called in controller\n'+req.params)
     const { _id } = req.params;
     const employee = await Employee.deleteOne({ _id: _id });
-    res.json({ msg: message.employee.delSuccess })
+    res.json({ msg: message.employee.deleteSuccess })
 }
 
 ctrlEmployee.update = async (req, res) => {

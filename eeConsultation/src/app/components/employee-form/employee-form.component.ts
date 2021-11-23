@@ -18,10 +18,14 @@ export class EmployeeFormComponent implements OnInit {
   public phone: AbstractControl
   public email: AbstractControl
   public salary: AbstractControl
+  public searchForm: FormGroup
+  public search: AbstractControl
   public sub = false
   public employees: any[] = []
   public newEmployee = {}
   public selectedId = ''
+  public searchedDoc = ''
+  public searchedEe: any
   private defaultGender = 'm'
   public fields: any
   public columns: any[] = []
@@ -43,6 +47,11 @@ export class EmployeeFormComponent implements OnInit {
         salary: ['', Validators.required],
       })
 
+    this.searchForm = this.formBuilder.group(
+      {
+        search: ['', Validators.required],
+      })
+
     this.name = this.form.controls['name']
     this.document = this.form.controls['document']
     this.dob = this.form.controls['dob']
@@ -50,9 +59,12 @@ export class EmployeeFormComponent implements OnInit {
     this.phone = this.form.controls['phone']
     this.email = this.form.controls['email']
     this.salary = this.form.controls['salary']
+    this.search = this.searchForm.controls['search']
     this.fields = config.config.formComponent.form
     this.columns = Object.keys(this.fields.text)
     this.eeProps = Object.keys(this.fields.field)
+    
+
 
     this.list()
   }
@@ -95,15 +107,15 @@ export class EmployeeFormComponent implements OnInit {
           if (res.status) {
             console.log('Empleado registrado')
           }
-          else{
+          else {
             window.alert(res.msg);
             // console.log(res)
           }
         },
         complete: () => { this.list() }, // completeHandler
-        error: () => { 
+        error: () => {
           console.log('Error creating user')
-         }    // errorHandler 
+        }    // errorHandler 
       })
       this.employees.push(this.newEmployee)
       // console.log(this.employees)
@@ -121,8 +133,8 @@ export class EmployeeFormComponent implements OnInit {
   list() {
     this.employeeService.list().subscribe({
       next: (res: any) => {
-        if (res.length > 0) {
-          this.employees = res
+        if (res.status) {
+          this.employees = res.data
         }
       },
       complete: () => { console.log('Empleados listados') }, // completeHandler
@@ -131,6 +143,8 @@ export class EmployeeFormComponent implements OnInit {
   }
 
   edit(ee: any) {
+    this.searchForm.reset()
+    this.searchedEe = undefined
     for (let i in this.fields.field) {
       if (this.fields.field[i] == 'dob') {
         this.form.get(this.fields.field[i])?.setValue(ee[this.fields.field[i]].toString().split('T')[0])
@@ -168,7 +182,7 @@ export class EmployeeFormComponent implements OnInit {
                 // this.employees[i].user = this.form.controls['user'].value
                 console.log('Usuario Actualizado')
               }
-              else{
+              else {
                 window.alert(res.msg);
                 // console.log(res)
               }
@@ -191,7 +205,7 @@ export class EmployeeFormComponent implements OnInit {
           // this.employees[i].user = this.form.controls['user'].value
           console.log('Empleado eliminado')
         }
-        else{
+        else {
           window.alert(res.msg);
           // console.log(res)
         }
@@ -200,5 +214,23 @@ export class EmployeeFormComponent implements OnInit {
       error: () => { console.log('Error eliminando el empleado') }    // errorHandler 
     })
     // this.list()
+  }
+  find(){
+    this.searchedDoc= this.searchForm.controls['search'].value
+    this.employeeService.searchGet(this.searchedDoc).subscribe({
+      next: (res: any) => {
+        if (res.status) {
+          // this.employees[i].user = this.form.controls['user'].value
+          this.searchedEe = res.data;
+          console.log(this.searchedEe)
+        }
+        else {
+          window.alert(res.msg);
+          // console.log(res)
+        }
+      },
+      complete: () => { this.list() }, // completeHandler
+      error: () => { console.log('Error eliminando el empleado') }    // errorHandler 
+    })
   }
 }

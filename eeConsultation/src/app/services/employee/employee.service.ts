@@ -29,11 +29,11 @@ export class EmployeeService {
       return this.http.delete(this.URL_API+'/employee/' + id)
     }
   
-    search(data:any){
-      return this.http.post(this.URL_API+'/employee/search', data)
-    }
+    // search(data:any){
+    //   return this.http.post(this.URL_API+'/employee/search', data)
+    // }
   
     searchGet(data:any){
-      return this.http.get(this.URL_API+'/employee/searchget', data)
+      return this.http.get(this.URL_API+'/employee/'+data)
     }
 }

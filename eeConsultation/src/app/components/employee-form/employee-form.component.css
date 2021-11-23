@@ -3,7 +3,7 @@ h2,label,th{
     text-transform: capitalize;
 }
 
-#form{
+#form-div,#search-div{
     background: var(--frost);
     width: 30rem;
     padding: 1rem;

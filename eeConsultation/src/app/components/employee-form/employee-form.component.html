@@ -1,5 +1,5 @@
 <h2 class="text-center">{{config.config.formComponent.titles.form}}</h2>
-<div id='form' class="text-center">
+<div id='form-div' class="text-center">
     <form [formGroup]="form">
         <div>
             <div>
@@ -65,6 +65,52 @@
         <br>
     </form>
 </div>
+<div id='search-div' class="text-center">
+    <div [formGroup]="searchForm">
+        <label class="ee-info">Buscar por {{fields.text.f2}}</label>
+        <input type="text" id="search" name="search" formControlName="search" class="form-control"
+            [ngClass]="{'is-invalid' : sub && f['search'].errors, 'is-valid' : search.valid && (search.dirty || search.touched)}">
+    </div>
+
+    <button (click)="find()" class="bt bt-success">{{config.config.formComponent.btnSearch}}</button>
+</div>
+
+<div class="show-ee">
+    <table *ngIf="searchedEe != undefined" class="table">
+        <thead>
+            <tr>
+                <!-- <th>#</th> -->
+                <th *ngFor="let col of columns; index as i" scope="col">{{fields.text[columns[i]]}}</th>
+                <th>{{config.config.formComponent.btnEdit}}</th>
+                <th>{{config.config.formComponent.btnDelete}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- <th scope="row">{{i+1}}</th> -->
+                <td *ngFor="let prop of eeProps; index as j" scope="col">
+                    <div *ngIf="fields.field[eeProps[j]] != 'dob' else printDate" class={{fields.field[eeProps[j]]}}>
+                        {{searchedEe[fields.field[eeProps[j]]]}}
+                    </div>
+                    <ng-template #printDate>
+                        <div class={{fields.field[eeProps[j]]}}>
+                            {{searchedEe[fields.field[eeProps[j]]] | date: 'dd/MM/yyyy'}}
+                        </div>
+                    </ng-template>
+                </td>
+                <td>
+                    <button (click)="edit(searchedEe)" class="bt btn-primary">
+                        {{config.config.formComponent.btnEdit}}
+                    </button>
+                </td>
+                <td><button (click)="delete(searchedEe)" class="bt btn-danger">
+                        {{config.config.formComponent.btnDelete}}
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <h2 class="text-center">{{config.config.formComponent.titles.table}}</h2>
 <div id='table' class="text-center">
     <table *ngIf="employees.length > 0" class="table">
@@ -78,8 +124,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let ee of employees; index as i" [ngClass]="(i+1)%2==0 ? 'even-row' : 'odd-row'">
-                <th scope="row">{{i+1}}</th>
-                <th *ngFor="let prop of eeProps; index as j" scope="col">
+                <td scope="row">{{i+1}}</td>
+                <td *ngFor="let prop of eeProps; index as j" scope="col">
                     <div *ngIf="fields.field[eeProps[j]] != 'dob' else printDate" class={{fields.field[eeProps[j]]}}>
                         {{employees[i][fields.field[eeProps[j]]]}}
                     </div>
@@ -88,12 +134,16 @@
                             {{employees[i][fields.field[eeProps[j]]] | date: 'dd/MM/yyyy'}}
                         </div>
                     </ng-template>
-                </th>
-
-                <td><button (click)="edit(ee)" class="bt btn-primary">{{config.config.formComponent.btnEdit}}</button>
                 </td>
-                <td><button (click)="delete(ee)"
-                        class="bt btn-danger">{{config.config.formComponent.btnDelete}}</button>
+
+                <td>
+                    <button (click)="edit(ee)" class="bt btn-primary">
+                        {{config.config.formComponent.btnEdit}}
+                    </button>
+                </td>
+                <td><button (click)="delete(ee)" class="bt btn-danger">
+                        {{config.config.formComponent.btnDelete}}
+                    </button>
                 </td>
             </tr>
         </tbody>
