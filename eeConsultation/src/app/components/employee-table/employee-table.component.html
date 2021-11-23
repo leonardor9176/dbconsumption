@@ -1,1 +1,31 @@
-<p>employee-table works!</p>
+<!-- <h2 class="text-center">{{config.config.formComponent.title}}</h2>
+<div class="text-center">
+    <table *ngIf="employees.length > 0" class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th *ngFor="let col of columns; index as i" scope="col">{{fields.text[columns[i]]}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ee of employees; index as i">
+                <th scope="row">{{i+1}}</th>
+                <th *ngFor="let prop of eeProps; index as j" scope="col">
+                    <div *ngIf="fields.field[eeProps[j]] != 'dob' else printDate">
+                        {{employees[i][fields.field[eeProps[j]]]}}
+                    </div>
+                    <ng-template #printDate>
+                        {{employees[i][fields.field[eeProps[j]]] | date: 'dd/MM/yyyy'}}
+                    </ng-template>
+                </th>
+
+                <td><button (click)="edit(ee)" 
+                        class="bt btn-primary">{{config.config.formComponent.btnEdit}}</button>
+                </td>
+                <td><button (click)="delete(ee)"
+                        class="bt btn-danger">{{config.config.formComponent.btnDelete}}</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

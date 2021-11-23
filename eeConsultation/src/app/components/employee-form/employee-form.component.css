@@ -1,3 +1,54 @@
-h2{
+
+h2,label,th{
     text-transform: capitalize;
+}
+
+#form{
+    background: var(--sun);
+    width: 30rem;
+    padding: 1rem;
+    margin: 1rem auto;
+    border-radius: 1rem;
+}
+.ee-info{
+    font-weight: bold;
+}
+thead{
+    background: var(--easternBlue);
+    font-size: 1.25rem;
+}
+thead th{
+    color: var(--frost);
+    text-transform: uppercase;
+}
+.email{
+    text-transform: lowercase;
+}
+.even-row{
+    background: var(--turquoiseBlue);
+}
+.odd-row{
+    background: var(--sinbad);
+}
+#g-male,#g-female{
+    background: violet;
+    display: inline-block;
+}
+.gender-opt{
+    padding: 0 1.5rem;
+}
+
+.window-notice {
+    animation: ease-in-out;
+    height: 5rem;
+    width: 20rem;
+    background: rgba(33, 41, 52, .85);
+    color: white;
+    /* left: 0; */
+    bottom: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    position: fixed;
+    z-index: 999;
 }

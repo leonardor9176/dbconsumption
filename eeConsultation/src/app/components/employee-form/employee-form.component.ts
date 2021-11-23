@@ -22,8 +22,8 @@ export class EmployeeFormComponent implements OnInit {
   public employees: any[] = []
   public newEmployee = {}
   public selectedId = ''
-  public fields: any
   private defaultGender = 'm'
+  public fields: any
   public columns: any[] = []
   public eeProps: any[] = []
 
@@ -95,9 +95,15 @@ export class EmployeeFormComponent implements OnInit {
           if (res.status) {
             console.log('Empleado registrado')
           }
+          else{
+            window.alert(res.msg);
+            // console.log(res)
+          }
         },
         complete: () => { this.list() }, // completeHandler
-        error: () => { console.log('Error creating user') }    // errorHandler 
+        error: () => { 
+          console.log('Error creating user')
+         }    // errorHandler 
       })
       this.employees.push(this.newEmployee)
       // console.log(this.employees)
@@ -162,6 +168,10 @@ export class EmployeeFormComponent implements OnInit {
                 // this.employees[i].user = this.form.controls['user'].value
                 console.log('Usuario Actualizado')
               }
+              else{
+                window.alert(res.msg);
+                // console.log(res)
+              }
             },
             complete: () => { this.list() }, // completeHandler
             error: () => { console.log('Error creating user') }    // errorHandler 
@@ -180,6 +190,10 @@ export class EmployeeFormComponent implements OnInit {
         if (res.status) {
           // this.employees[i].user = this.form.controls['user'].value
           console.log('Empleado eliminado')
+        }
+        else{
+          window.alert(res.msg);
+          // console.log(res)
         }
       },
       complete: () => { this.list() }, // completeHandler

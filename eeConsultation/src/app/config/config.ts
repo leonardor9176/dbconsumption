@@ -4,7 +4,10 @@ export const config = {
         urlSocket: '' //not used 
     },
     formComponent: {
-        title: 'registro de empleados',
+        titles:{
+            form: 'registro de empleados',
+            table:'datos de empleados',
+        },
         btnAdd: 'agregar',
         btnEdit: 'editar',
         btnDelete: 'eliminar',
