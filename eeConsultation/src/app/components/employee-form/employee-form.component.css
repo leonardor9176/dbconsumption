@@ -4,7 +4,7 @@ h2,label,th{
 }
 
 #form{
-    background: var(--sun);
+    background: var(--frost);
     width: 30rem;
     padding: 1rem;
     margin: 1rem auto;
@@ -31,7 +31,6 @@ thead th{
     background: var(--sinbad);
 }
 #g-male,#g-female{
-    background: violet;
     display: inline-block;
 }
 .gender-opt{
